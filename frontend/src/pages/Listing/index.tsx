@@ -5,9 +5,10 @@ import MovieCard from "../../components/MovieCard";
 import Pagination from "../../components/Pagination";
 import { MoviePage } from "types/movie";
 
-function Listing() {
+const Listing = () => {
   const [pageNumber, setPageNumber] = useState(0);
 
+  //Pagina que voltou da requisição do Backend
   const [page, setPage] = useState<MoviePage>({
     content: [],
     last: true,
@@ -29,9 +30,13 @@ function Listing() {
       });
   }, [pageNumber]);
 
+  const handlePageChange = (newPageNumber : number) => {
+    setPageNumber(newPageNumber);
+  } 
+
   return (
     <Fragment>
-      <Pagination />
+      <Pagination page={page} onChange={handlePageChange}/>
       <div className="container">
         <div className="row">
           {page.content.map((movie) => {
